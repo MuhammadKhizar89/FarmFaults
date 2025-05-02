@@ -1,27 +1,27 @@
-import { useState } from 'react'
-
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 function App() {
-  const [count, setCount] = useState(0)
-
   return (
     <>
-      <div>
-        
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <Toaster position="top-center" reverseOrder={false} />
+      <BrowserRouter>
+        <Routes>
+          <Route path="/" element={<h1>This is home Page</h1>} />
+          <Route path="/signin" element={<h1>This is SignIn Page</h1>} />
+          <Route path="/signup" element={<h1>This is SignUp Page</h1>} />
+          {/* Protected Route Will be added later */}
+          <Route path="/dashboard" element={<h1>This is DashBoard Page</h1>} />
+          <Route path="/leaderboard" element={<h1>This is LeaderBoard Page</h1>} />
+          <Route path="/account" element={<h1>This is Account Page</h1>} />
+          <Route path="/report-error" element={<h1>This is Report Error Page</h1>} />
+          <Route path="/view-map" element={<h1>This is View Map Page</h1>} />
+          <Route path="/logout" element={<h1>This is not a page</h1>} />
+          <Route path="/about" element={<h1>This is Aboout Page</h1>} />
+          <Route path="/contact" element={<h1>This is Contact Page</h1>} />
+          <Route path="/*" element={<h1>This is Not Found Page</h1>} />
+        </Routes>
+      </BrowserRouter>
     </>
-  )
+  );
 }
 
-export default App
+export default App;
