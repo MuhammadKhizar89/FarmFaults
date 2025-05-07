@@ -18,7 +18,6 @@ export const authenticate = async (req, res, next) => {
     if (!user) {
       return next(errorHandler(404, "User not found. Please Login to Continue."));
     }
-
     req.userId = decoded.id;
     next();
   } catch (error) {
