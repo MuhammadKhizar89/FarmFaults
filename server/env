@@ -1,0 +1,4 @@
+MONGO_URI=mongodb+srv://muhammadkhizar8919:EJktimvYh0OMpH1i@cluster0.uw3cy45.mongodb.net/Farm-Faults?retryWrites=true&w=majority&appName=Cluster0
+JWT_SECRET = 'mera-farm'
+SALT = '10'
+CLIENT_BASE_URL="http://localhost:5173"
