@@ -1,4 +1,36 @@
-@import "tailwindcss";
+@font-face {
+  font-family: PromoTest;
+  src: url("/fonts/PromoTest.ttf");
+}
+
+@font-face {
+  font-family: Poppins;
+  src: url("/fonts/Poppins-Regular.ttf");
+}
+
+.promoTest {
+  font-family: PromoTest;
+}
+
+.poppins {
+  font-family: Poppins;
+}
+
+.heading {
+  @apply text-[20px] md:text-[33px] poppins font-semibold
+}
+
+.heading-lg {
+  @apply text-[25px] md:text-[35px] promoTest font-bold
+}
+
+.txt {
+  @apply poppins text-[10px] md:text-[13.66px]
+}
+
+.txt-lg {
+  @apply poppins text-[13.66px] md:text-[18.66px]
+}
 
 #root {
   max-width: 1280px;
@@ -13,9 +45,11 @@
   will-change: filter;
   transition: filter 300ms;
 }
+
 .logo:hover {
   filter: drop-shadow(0 0 2em #646cffaa);
 }
+
 .logo.react:hover {
   filter: drop-shadow(0 0 2em #61dafbaa);
 }
@@ -24,6 +58,7 @@
   from {
     transform: rotate(0deg);
   }
+
   to {
     transform: rotate(360deg);
   }
@@ -42,3 +77,4 @@
 .read-the-docs {
   color: #888;
 }
+

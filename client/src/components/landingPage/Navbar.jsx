@@ -78,7 +78,7 @@ const Navbar = () => {
                   <Link
                     to={link.href}
                     onClick={() => setIsOpen(false)}
-                    className="text-[#181C1E] text-2xl text-left"
+                    className="!text-[#181C1E] text-2xl text-left"
                   >
                     {link.text}
                   </Link>
