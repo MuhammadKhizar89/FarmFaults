@@ -1,10 +1,8 @@
 import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import {
   getUserApiCall,
-  logoutApiCall,
   deletetUserApiCall,
   updateAvatarApiCall,
-  verifyApiCall,
 } from "../../apis/auth.api";
 
 // Async Thunks
@@ -20,11 +18,6 @@ export const deleteUser = createAsyncThunk("auth/deleteUser", async (_, thunkAPI
   return thunkAPI.rejectWithValue(response.message);
 });
 
-export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, thunkAPI) => {
-  const response = await logoutApiCall();
-  if (response.success) return response.message;
-  return thunkAPI.rejectWithValue(response.message);
-});
 
 export const updateUserAvatar = createAsyncThunk(
   "auth/updateAvatar",
@@ -35,11 +28,6 @@ export const updateUserAvatar = createAsyncThunk(
   }
 );
 
-export const verifyLogin = createAsyncThunk("auth/verifyLogin", async (_, thunkAPI) => {
-  const response = await verifyApiCall();
-  if (response.success) return true;
-  return false;
-});
 
 const authSlice = createSlice({
   name: "auth",
@@ -85,10 +73,7 @@ const authSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       })
-      .addCase(logoutUser.fulfilled, (state) => {
-        state.user = null;
-        state.isAuthenticated = false;
-      })
+
       .addCase(updateUserAvatar.pending, (state) => {
         state.uploadingAvatar = true;
       })
@@ -100,9 +85,6 @@ const authSlice = createSlice({
         state.uploadingAvatar = false;
         state.error = action.payload;
       })
-      .addCase(verifyLogin.fulfilled, (state, action) => {
-        state.isAuthenticated = action.payload;
-      });
   },
 });
 
