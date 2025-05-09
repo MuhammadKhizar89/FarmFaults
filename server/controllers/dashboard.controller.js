@@ -87,3 +87,74 @@ export const getTopUsers = async (req, res) => {
         });
 
 };
+
+
+
+
+export const getLastTenErrors = async (req, res) => {
+    // Step 1: Get the page value from the request body (default to 0 if not provided)
+    const { page = 0 } = req.body;
+
+    // Step 2: Fetch all the errors sorted by ascending _id (oldest first)
+    let errors = await Error.aggregate([
+        {
+            $addFields: {
+                userIdAsObjectId: { $toObjectId: "$userId" } // Convert userId string to ObjectId
+            }
+        },
+        {
+            $lookup: {
+                from: "users", // name of the users collection
+                localField: "userIdAsObjectId", // converted ObjectId field
+                foreignField: "_id", // _id in users collection
+                as: "userDetails"
+            }
+        },
+        { $unwind: "$userDetails" }, // Unwind the userDetails array
+    ]);
+
+    // Step 3: Reverse the errors array to get the latest ones first
+    errors = errors.reverse();
+
+    // Step 4: Calculate the total number of records
+    const totalRecords = errors.length;
+    // Step 5: Calculate the number of records to skip and limit based on page number
+    const limit = 10; // Fetch 10 records per page
+    const skip = page * limit;
+
+    // Step 6: Check if there are enough records for this page
+    if (skip >= totalRecords) {
+        return res.status(404).json({ message: "No more errors to show" });
+    }
+
+    // Step 7: Extract the necessary records for this page
+    const paginatedErrors = errors.slice(skip, skip + limit);
+
+    // Step 8: Format the response with user details and points from the Error schema
+    const formattedErrors = paginatedErrors.map(error => ({
+        errorType: error.type,
+        description: error.description,
+        points: error.points, // Access points directly from the error model
+        photos: error.photos, // Include photos if needed
+        user: {
+            userId: error.userDetails._id,
+            firstName: error.userDetails.firstName,
+            lastName: error.userDetails.lastName,
+            avatar: error.userDetails.avatar
+        }
+    }));
+
+    // Step 9: Determine if the next button should be disabled
+    const limitExceed = skip + limit >= totalRecords;
+
+    // Step 10: Send the response with formatted errors and disableNextButton flag
+    return res.status(200).json({
+        success: true,
+        data: {
+            formattedErrors,
+            disableNextButton: limitExceed
+        },
+    });
+
+
+};
