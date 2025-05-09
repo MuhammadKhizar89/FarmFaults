@@ -93,3 +93,9 @@ export async function verify(req, res, next) {
     .status(200)
     .send({ success: true, message: "Authentication Successfull." });
 }
+
+export async function logout(req, res, next) {
+  res.clearCookie("access_token", {
+  });
+  res.status(200).send({ success: true, message: "Logout Successfull" });
+}

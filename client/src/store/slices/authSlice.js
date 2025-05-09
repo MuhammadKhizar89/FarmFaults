@@ -3,7 +3,14 @@ import {
   getUserApiCall,
   deletetUserApiCall,
   updateAvatarApiCall,
+  logoutApiCall,
 } from "../../apis/auth.api";
+
+export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, thunkAPI) => {
+  const response = await logoutApiCall();
+  if (response.success) return response.message;
+  return thunkAPI.rejectWithValue(response.message);
+});
 
 // Async Thunks
 export const fetchUser = createAsyncThunk("auth/fetchUser", async (_, thunkAPI) => {
