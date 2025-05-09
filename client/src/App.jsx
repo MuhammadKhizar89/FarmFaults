@@ -7,6 +7,7 @@ import Signup from "./pages/Signup";
 import ReportError from "./pages/ReportError";
 import ViewMap from "./pages/ViewMap";
 import Logout from "./pages/Logout";
+import Dashboard from "./pages/Dashboard";
 function App() {
   return (
     <div className="!text-tertiary">
@@ -16,7 +17,7 @@ function App() {
           <Route path="/signin" element={<Signin/>} />
           <Route path="/signup" element={<Signup/>} />
           <Route element={<PrivateRoute />}>
-            <Route path="/dashboard" element={<h1>This is DashBoard Page</h1>} />
+            <Route path="/dashboard" element={<Dashboard/>} />
             <Route path="/leaderboard" element={<h1>This is LeaderBoard Page</h1>} />
             <Route path="/account" element={<Account/>} />
             <Route path="/report-error" element={<ReportError />} />
