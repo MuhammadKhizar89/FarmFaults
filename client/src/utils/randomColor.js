@@ -1,6 +1,6 @@
 const getRandomDarkColor = (firstCharacter) => {
 
-    const char = firstCharacter.toUpperCase();
+    const char = firstCharacter?.toUpperCase();
     const colorMap = {
         A: "#00008B", // dark blue
         B: "#8B0000", // dark red

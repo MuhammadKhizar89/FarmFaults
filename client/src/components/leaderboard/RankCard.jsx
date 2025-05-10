@@ -24,7 +24,7 @@ const RankCard = ({ className, rank, userImage, userName, score }) => {
           {userImage === "N/A" ? (
             <span
               className="min-w-6 md:w-7 lg:w-8 xl:w-9 aspect-square rounded-full text-white text-sm md:text-base text-center flex items-center justify-center"
-              style={{ backgroundColor: getRandomDarkColor() }}
+              style={{ backgroundColor: getRandomDarkColor(userName[0]) }}
             >
               {userName[0].toUpperCase()}
             </span>
