@@ -13,7 +13,11 @@
     "@reduxjs/toolkit": "^2.7.0",
     "@tailwindcss/vite": "^4.1.4",
     "axios": "^1.9.0",
+<<<<<<< HEAD
     "farmfaults": "file:",
+=======
+    "crypto-js": "^4.2.0",
+>>>>>>> 4335fcd00643338571e2b4d45f18049c5877b633
     "hamburger-react": "^2.5.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",

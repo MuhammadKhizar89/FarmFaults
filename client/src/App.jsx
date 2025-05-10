@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import PrivateRoute from "./components/PrivateRoute";
+import Account from "./pages/Account";
 import Home from "./pages/Home";
 import Leaderboard from "./pages/Leaderboard";
 function App() {
@@ -12,8 +13,13 @@ function App() {
           <Route path="/signup" element={<h1>This is SignUp Page</h1>} />
           <Route element={<PrivateRoute />}>
             <Route path="/dashboard" element={<h1>This is DashBoard Page</h1>} />
+
             <Route path="/leaderboard" element={<Leaderboard/>} />
-            <Route path="/account" element={<h1>This is Account Page</h1>} />
+            
+
+            
+            <Route path="/account" element={<Account/>} />
+
             <Route path="/report-error" element={<h1>This is Report Error Page</h1>} />
             <Route path="/view-map" element={<h1>This is View Map Page</h1>} />
             <Route path="/logout" element={<h1>This is not a page</h1>} />
