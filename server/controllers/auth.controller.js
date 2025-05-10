@@ -93,3 +93,65 @@ export async function verify(req, res, next) {
     .status(200)
     .send({ success: true, message: "Authentication Successfull." });
 }
+
+export async function logout(req, res, next) {
+  res.clearCookie("access_token", {
+  });
+  res.status(200).send({ success: true, message: "Logout Successfull" });
+}
+
+
+export async function updateAvatar(req, res, next) {
+  const userId = req.userId;
+  const { avatar } = req.body;
+
+  if (typeof avatar != "string") {
+    return next(errorHandler(400, "Expected Body of type {avatar: string}"));
+  }
+
+  await User.findByIdAndUpdate(userId, { avatar }, { new: true });
+
+  res.status(200).send({
+    success: true,
+    message: "Avatar updated successfully",
+  });
+}
+
+
+
+
+export async function deleteUser(req, res, next) {
+  const userId = new mongoose.Types.ObjectId(req.userId);
+  await User.findByIdAndDelete(req.userId);
+  await Leaderboard.deleteOne({ userId });
+  await Error.deleteOne({ userId });
+  res.clearCookie("access_token", {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+  });
+  res
+    .status(200)
+    .header("Authorization", `Bearer ${token}`)
+    .send({ success: true, message: "User Deleted." });
+}
+
+
+
+export async function getUser(req, res, next) {
+  const userId = req.userId;
+  const _user = await User.findById(userId);
+  const user = {
+    _id: userId,
+    firstName: _user.firstName,
+    lastName: _user.lastName,
+    dob: _user.dob,
+    email: _user.email,
+    avatar: _user.avatar,
+  };
+
+  return res
+    .status(201)
+    .send({ success: true, message: "User Retrieved.", data: user });
+}
+

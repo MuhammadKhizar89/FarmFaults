@@ -65,7 +65,7 @@ export default function Account() {
       <div
         className="w-[200px] aspect-square relative rounded-full mx-auto flex items-center justify-center overflow-hidden"
         style={{
-          backgroundColor: user.avatar === "N/A" ? getRandomDarkColor() : "",
+          backgroundColor: user.avatar === "N/A" ? getRandomDarkColor(user.firstName[0]) : "",
         }}
       >
         {uploadingAvatar && (

@@ -3,7 +3,15 @@ import {
   getUserApiCall,
   deletetUserApiCall,
   updateAvatarApiCall,
+  verifyApiCall,
+  logoutApiCall,
 } from "../../apis/auth.api";
+
+export const logoutUser = createAsyncThunk("auth/logoutUser", async (_, thunkAPI) => {
+  const response = await logoutApiCall();
+  if (response.success) return response.message;
+  return thunkAPI.rejectWithValue(response.message);
+});
 
 // Async Thunks
 export const fetchUser = createAsyncThunk("auth/fetchUser", async (_, thunkAPI) => {
@@ -27,6 +35,13 @@ export const updateUserAvatar = createAsyncThunk(
     return thunkAPI.rejectWithValue(response.message);
   }
 );
+
+
+export const verifyLogin = createAsyncThunk("auth/verifyLogin", async (_, thunkAPI) => {
+  const response = await verifyApiCall();
+  if (response.success) return true;
+  return false;
+});
 
 
 const authSlice = createSlice({
@@ -85,6 +100,9 @@ const authSlice = createSlice({
         state.uploadingAvatar = false;
         state.error = action.payload;
       })
+      .addCase(verifyLogin.fulfilled, (state, action) => {
+        state.isAuthenticated = action.payload;
+      });
   },
 });
 
