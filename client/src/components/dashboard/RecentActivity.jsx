@@ -9,7 +9,7 @@ const RecentActivity = ({ imageSrc, username, errorType, points }) => {
         {imageSrc === "N/A" ? (
           <span
             className="min-w-6 aspect-square md:w-7 lg:w-9 xl:w-10 rounded-full text-white text-sm md:text-base text-center flex items-center justify-center"
-            style={{ backgroundColor: getRandomDarkColor() }}
+            style={{ backgroundColor: getRandomDarkColor(username[0].toUpperCase()) }}
           >
             {username[0].toUpperCase()}
           </span>

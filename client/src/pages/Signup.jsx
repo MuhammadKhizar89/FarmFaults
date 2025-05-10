@@ -58,6 +58,7 @@ export default function Signup() {
   }, [password]);
 
   async function signup(e) {
+    console.log("signup");
     e.preventDefault();
     setLoading(true);
 
@@ -237,7 +238,7 @@ export default function Signup() {
           <div className="flex flex-col w-full mt-14 gap-5 items-center">
             <button
               type="submit"
-              className="bg-tertiary w-full md:w-[349px] rounded-[5px] py-3 text-center txt font-semibold text-white"
+              className="bg-tertiary cursor-pointer hover:!opacity-80 w-full md:w-[349px] rounded-[5px] py-3 text-center txt font-semibold text-white"
             >
               {loading ? (
                 <Loader color="#fff" className="w-[20px] h-[20px] mx-auto" />

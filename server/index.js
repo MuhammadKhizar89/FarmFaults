@@ -5,6 +5,7 @@ import dotenv from "dotenv";
 import errorEnumRouter from "./routes/errorEnum.route.js";
 import errorRouter from "./routes/errorReport.route.js";
 import authRouter from "./routes/auth.route.js";
+import dashboardRouter from "./routes/dashboard.route.js";
 import cookieParser from "cookie-parser";
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,9 +28,7 @@ app.use("/api/auth", authRouter);
 app.use("/api/error", errorRouter);
 app.use("/api/error-enum", errorEnumRouter);
 
-app.use("/api/dashboard", (req, res) => {
-    return res.status(200).send({ message: "Hello World" });
-});
+app.use("/api/dashboard",dashboardRouter);
 app.use("/api/leaderboard",  (req, res) => {
     return res.status(200).send({ message: "Hello World" });
 });
