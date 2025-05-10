@@ -1,33 +1,34 @@
-import React from "react";
-import Coin from "../../svgs/dashboardSvgs/Coin.svg";
 import getRandomDarkColor from "../../utils/randomColor";
 
-const RecentActivity = ({ imageSrc, username, errorType, points }) => {
+export default function RecentActivity({ imageSrc, username, errorType, points }) {
   return (
-    <div className="flex justify-between items-center bg-[#E7DBCA] rounded-3xl w-full lg:w-11/12 my-2 text-[10px] sm:text-[10px] xl:text-sm py-1 sm:py-0">
-      <div className="flex items-center gap-3">
-        {imageSrc === "N/A" ? (
-          <span
-            className="min-w-6 aspect-square md:w-7 lg:w-9 xl:w-10 rounded-full text-white text-sm md:text-base text-center flex items-center justify-center"
-            style={{ backgroundColor: getRandomDarkColor(username[0].toUpperCase()) }}
-          >
-            {username[0].toUpperCase()}
-          </span>
-        ) : (
-          <img
-            className="w-6 aspect-square object-cover md:w-7 lg:w-9 xl:w-10 rounded-full"
-            src={imageSrc}
-            alt="User"
-          />
-        )}
-        <p className="max-w-[85%]">{`${username} reported ${errorType}`}</p>
+    <div className="flex items-center justify-between bg-[#E7DBCA] rounded-xl my-3 p-3 shadow-sm transition-all hover:shadow-md">
+      <div className="flex items-center space-x-3">
+        <div className="h-9 w-9 rounded-full overflow-hidden border-2 border-[#181C1E]/10 flex items-center justify-center">
+          {imageSrc === "N/A" ? (
+            <div
+              style={{ backgroundColor: getRandomDarkColor(username[0]) }}
+              className="w-full h-full flex items-center justify-center text-white font-medium"
+            >
+              {username[0].toUpperCase()}
+            </div>
+          ) : (
+            <img src={imageSrc || "/placeholder.svg"} alt={username} className="w-full h-full object-cover" />
+          )}
+        </div>
+
+        <div className="text-sm">
+          <span className="font-medium">{username}</span> reported <span className="font-medium">{errorType}</span>
+        </div>
       </div>
-      <div className="flex justify-center items-center px-3">
-        <p className="mx-2">{points}</p>
-        <Coin />
+
+      <div className="flex items-center space-x-1">
+        <span className="font-bold">{points}</span>
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+          <circle cx="12" cy="12" r="10" fill="#F9A825" stroke="#181C1E" strokeWidth="1.5" />
+          <path d="M12 6V18M6 12H18" stroke="#181C1E" strokeWidth="1.5" strokeLinecap="round" />
+        </svg>
       </div>
     </div>
-  );
-};
-
-export default RecentActivity;
+  )
+}

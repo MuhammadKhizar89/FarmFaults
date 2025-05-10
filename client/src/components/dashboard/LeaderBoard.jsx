@@ -1,40 +1,33 @@
 import React from "react";
 import getRandomDarkColor from "../../utils/randomColor";
 
-const LeaderBoard = ({
-  userImage,
-  userName,
-  totalPoints,
-  rankIcon,
-  positions,
-}) => {
+export default function LeaderBoard({ position, userImage, userName, totalPoints, rankIcon }) {
   return (
-    <div className="flex justify-between items-center bg-[#E7DBCA] px-5 p-[2px] sm:py-2 rounded-3xl sm:w-[75%] lg:w-[90%] xl:w-[70%] my-2 text-[10px] sm:text-[9px] md:text-xs xl:text-sm h-fit">
-      <div className="flex items-center w-full gap-2">
-        <p className="min-w-[20px]">{positions}</p>
-        {rankIcon}
-        <div className="flex items-center w-full">
-          {userImage === "N/A" ? (
-            <span
-              className="min-w-6 aspect-square md:min-w-6 lg:min-w-9 xl:min-w-10 rounded-full text-white text-sm  md:text-base text-center flex items-center justify-center"
-              style={{ backgroundColor: getRandomDarkColor(userName[0].toUpperCase()) }}
-            >
-              {userName[0].toUpperCase()}
-            </span>
-          ) : (
-            <img
-              src={userImage}
-              alt={userName}
-              className="w-6 aspect-square md:w-7 lg:w-9 xl:w-10 object-cover rounded-full"
-            />
-          )}
-          <p className="ml-2">{userName}</p>
+    <div className="flex items-center justify-between bg-[#E7DBCA] rounded-xl my-3 p-3 shadow-sm transition-all hover:shadow-md">
+      <div className="flex items-center space-x-3">
+        <div className="flex items-center space-x-2 min-w-[80px]">
+          <span className="font-medium text-sm">{position}</span>
+          <div className="text-[#181C1E] w-5 h-5">{rankIcon}</div>
+        </div>
+
+        <div className="flex items-center space-x-3">
+          <div className="h-9 w-9 rounded-full overflow-hidden border-2 border-[#181C1E]/10 flex items-center justify-center">
+            {userImage === "N/A" ? (
+              <div
+                style={{ backgroundColor: getRandomDarkColor(userName[0]) }}
+                className="w-full h-full flex items-center justify-center text-white font-medium"
+              >
+                {userName[0].toUpperCase()}
+              </div>
+            ) : (
+              <img src={userImage || "/placeholder.svg"} alt={userName} className="w-full h-full object-cover" />
+            )}
+          </div>
+          <span className="font-medium">{userName}</span>
         </div>
       </div>
 
-      <p>{totalPoints}</p>
+      <div className="font-bold">{totalPoints}</div>
     </div>
-  );
-};
-
-export default LeaderBoard;
+  )
+}

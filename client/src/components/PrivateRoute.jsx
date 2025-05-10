@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { verifyApiCall } from "../apis/auth.api";
 import SidePanel from "./sidePanel/SidePanel";
@@ -31,7 +31,7 @@ export default function PrivateRoutes() {
   }
 
   return loggedIn ? (
-    <div className="flex bg-secondary h-min-[100vh] w-[100vw]">
+    <div className="flex bg-secondary h-min-[100vh] ">
       <SidePanel />
       <Outlet />
     </div>
