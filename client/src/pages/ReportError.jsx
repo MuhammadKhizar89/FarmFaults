@@ -74,7 +74,7 @@ export default function ReportError() {
 
     return (
         <div className="flex flex-col w-[100%] min-h-[100vh] px-10 overflow-x-auto space-y-10 pt-14 lg:pt-4 bg-primary">
-            <h1 className="heading font-light lg:ml-14">Report an error</h1>
+            <h1 className="heading font-light ">Report an error</h1>
             <div className="flex flex-col items-center lg:items-start justify-center w-[100%] space-x-0 lg:space-x-12 lg:flex-row">
                 <ErrorForm
                     setDisable={setDisable}
