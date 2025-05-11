@@ -3,6 +3,7 @@ import { Navigate, Outlet } from "react-router-dom";
 import { verifyApiCall } from "../apis/auth.api";
 import SidePanel from "./sidePanel/SidePanel";
 import Loader from "../svgs/Loader";
+import toast from "react-hot-toast";
 
 export default function PrivateRoutes() {
   const [loggedIn, setIsLoggedIn] = useState(false);
@@ -11,6 +12,8 @@ export default function PrivateRoutes() {
   async function verifyLogin() {
     if (!loggedIn) {
       const res = await verifyApiCall();
+      if (res.success === false)
+        toast.error(res.message);
       setIsLoggedIn(res.success);
       setLoading(false);
     }
@@ -31,11 +34,13 @@ export default function PrivateRoutes() {
   }
 
   return loggedIn ? (
-    <div className="flex bg-secondary h-min-[100vh] ">
+    <div className="flex bg-secondary  ">
       <SidePanel />
-      <Outlet />
+      <div className="lg:ml-[20%] w-full !h-min-[100vh]">
+        <Outlet />
+      </div>
     </div>
   ) : (
-    <Navigate to="/" />
+    <Navigate to="/signin" />
   );
 }

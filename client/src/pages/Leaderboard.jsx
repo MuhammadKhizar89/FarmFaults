@@ -47,7 +47,7 @@ export default function Leaderboard() {
     <h1 className="heading txt py-3">Loading...</h1>
   </div>
   ): (
-    <main className=" px-4 sm:px-0 sm:pl-5 lg:pl-16 xl:pl-20 bg-primary w-full pt-6 lg:pt-0 ">
+    <main className="min-h-[100vh] px-4 sm:px-0 sm:pl-5 lg:pl-16 xl:pl-20 bg-primary w-full pt-6 lg:pt-0 ">
       <div className=" sm:w-[73%] md:w-[75%] lg:w-[80%] xl:w-[58%] flex items-center justify-between mt-10  sm:ml-[5%] lg:ml-0">
         <h1 className="text-xl sm:text-2xl lg:text-3xl xl:text-4xl">Leader Board</h1>
         <div className="flex justify-between gap-4 items-center">

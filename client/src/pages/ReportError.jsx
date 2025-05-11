@@ -1,11 +1,11 @@
-import {useEffect, useState} from "react";
+import { useEffect, useState } from "react";
 import ReportErrorMap from "../components/GoogleMap/ReportErrorMap";
 import ErrorForm from "../components/reportAnError/ErrorForm";
 import { useDispatch, useSelector } from 'react-redux';
 import { addError, clearAddErrorResponse } from '../store/slices/errorSlice';
 import { useGeolocation } from "../hooks/useGeoLocation";
 import toast from "react-hot-toast";
-import {useNavigate} from "react-router-dom";
+import {useNavigate } from "react-router-dom";
 import Loader from "../svgs/Loader";
 
 export default function ReportError() {
@@ -13,9 +13,9 @@ export default function ReportError() {
     const [photos, setPhotos] = useState([]);
     const [description, setDescription] = useState("");
     const [points, setPoints] = useState(0);
-    const [location, setLocation] = useState({lat: 40.0139, lng: -83.0104});
-    const {isLoading: geoLoading, position, error, getPosition} = useGeolocation();
-    const [errors, setErrors] = useState({type: false, photos: false});
+    const [location, setLocation] = useState({ lat: 40.0139, lng: -83.0104 });
+    const { isLoading: geoLoading, position, error, getPosition } = useGeolocation();
+    const [errors, setErrors] = useState({ type: false, photos: false });
     const [disable, setDisable] = useState(false);
 
     const navigate = useNavigate();
@@ -38,8 +38,9 @@ export default function ReportError() {
                 setType("");
                 setPhotos([]);
                 setDescription("");
-                localStorage.setItem("points", points);
                 setPoints(0);
+                toast.success("Error Successfully Reported");
+                navigate("/view-map");
             }
             dispatch(clearAddErrorResponse());
         }
@@ -47,12 +48,12 @@ export default function ReportError() {
 
     const handleSubmit = async () => {
         if (type === "") {
-            setErrors((prevErrors) => ({...prevErrors, type: true}));
+            setErrors((prevErrors) => ({ ...prevErrors, type: true }));
             toast.error("Please Select Type of Error");
             return;
         }
         if (photos.length === 0) {
-            setErrors((prevErrors) => ({...prevErrors, photos: true}));
+            setErrors((prevErrors) => ({ ...prevErrors, photos: true }));
             toast.error("Please Select At least One Picture");
             return;
         }
@@ -72,7 +73,7 @@ export default function ReportError() {
     };
 
     return (
-        <div className="flex flex-col w-[100%] px-10 overflow-x-auto space-y-10 pt-14 lg:pt-4 bg-primary">
+        <div className="flex flex-col w-[100%] min-h-[100vh] px-10 overflow-x-auto space-y-10 pt-14 lg:pt-4 bg-primary">
             <h1 className="heading font-light lg:ml-14">Report an error</h1>
             <div className="flex flex-col items-center lg:items-start justify-center w-[100%] space-x-0 lg:space-x-12 lg:flex-row">
                 <ErrorForm
@@ -89,12 +90,11 @@ export default function ReportError() {
                 >
                     <button
                         onClick={handleSubmit}
-                        className={`bg-tertiary text-white txt-lg promoTest font-light p-4 ${
-                            disable ? "cursor-not-allowed opacity-50" : "cursor-pointer"
-                        }`}
+                        className={`bg-tertiary text-white txt-lg promoTest font-light p-4 ${disable ? "cursor-not-allowed opacity-50" : "cursor-pointer"
+                            }`}
                         disabled={disable}
                     >
-                        {(geoLoading || isLoading || disable) ? <Loader color={"white"} className={"animate-spin w-[28px] h-[28px] mx-auto"}/> : "Report Error"}
+                        {(geoLoading || isLoading || disable) ? <Loader color={"white"} className={"animate-spin w-[28px] h-[28px] mx-auto"} /> : "Report Error"}
                     </button>
                 </ErrorForm>
                 <ReportErrorMap point={location} setPoint={setLocation} />

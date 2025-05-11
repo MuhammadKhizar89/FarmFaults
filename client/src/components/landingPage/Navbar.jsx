@@ -1,12 +1,17 @@
 import React, { useEffect, useState } from "react";
 import { Link, useLocation } from "react-router-dom";
 import { Sling as Hamburger } from "hamburger-react";
+import { verifyApiCall } from "../../apis/auth.api";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isVerified, setIsVerified] = useState(false);
   const [sidebarLinksData, setSidebarLinksData] = useState(data);
   const location = useLocation();
+
+  useEffect(() => {
+    verifyApiCall().then((res) => setIsVerified(res.success));
+  }, [])
 
   // Toggling mobile menu
   const toggleMenu = () => {
@@ -16,8 +21,7 @@ const Navbar = () => {
   const firstLinks = [
     { href: "/", text: "Home" },
     { href: "/leaderboard", text: "Leader board" },
-    { href: "/about", text: "About" },
-    { href: "/contact", text: "Contact" },
+    { href: "/#work", text: "How It Works" },
   ];
   useEffect(() => {
     if (location.hash) {
@@ -88,20 +92,26 @@ const Navbar = () => {
           </ul>
         </div>
       )}
-      <div className="hidden sm:block sm:space-x-4 lg:space-x-6 xl:space-x-10 text-[7px] sm:text-[10px] md:text-xs lg:text-sm xl:text-base">
+      {isVerified ? <Link
+        to="/dashboard"
+        className="p-1 hover:bg-[#181C1E] hover:text-white sm:px-3 md:px-4 lg:px-7 sm:py-2 border-[#181C1E] rounded-md md:rounded-xl lg:rounded-3xl border"
+      >
+        Dashboard
+      </Link> : <div className="hidden sm:block sm:space-x-4 lg:space-x-6 xl:space-x-10 text-[7px] sm:text-[10px] md:text-xs lg:text-sm xl:text-base">
         <Link
           to="/signin"
-          className="p-1 sm:px-3 md:px-4 lg:px-7 sm:py-2 border-[#181C1E] rounded-md md:rounded-xl lg:rounded-3xl border"
+          className="p-1 hover:bg-[#181C1E] hover:text-white sm:px-3 md:px-4 lg:px-7 sm:py-2 border-[#181C1E] rounded-md md:rounded-xl lg:rounded-3xl border"
         >
           Login
         </Link>
         <Link
           to="/signup"
-          className="p-1 sm:px-3 md:px-4 lg:px-7 sm:py-2 text-white bg-[#181C1E] opacity-80 rounded-md md:rounded-xl lg:rounded-3xl"
+          className="p-1  sm:px-3 md:px-4 lg:px-7 sm:py-2 text-white bg-[#181C1E] opacity-80 rounded-md md:rounded-xl lg:rounded-3xl"
         >
           Register
         </Link>
       </div>
+      }
     </nav>
   );
 };

@@ -86,10 +86,10 @@ export default function Signin() {
           <div className="flex flex-col mt-10 gap-5 items-center w-full md:w-[550px]">
             <button
               disabled={loading}
-              className="bg-tertiary loginBtnShadow w-full md:w-[544px] rounded-[5px] py-3 text-center txt-lg text-white"
+              className="bg-tertiary cursor-pointer w-full md:w-[544px] rounded-[5px] py-3 text-center txt-lg text-white"
             >
               {loading ? (
-                <Loader color="#fff" className="w-[28px] h-[28px] mx-auto" />
+                <Loader color="#fff" className="w-[28px] h-[28px]  mx-auto" />
               ) : (
                 "Login now"
               )}

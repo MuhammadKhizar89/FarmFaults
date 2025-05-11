@@ -9,9 +9,11 @@ import ReportError from "./pages/ReportError";
 import ViewMap from "./pages/ViewMap";
 import Logout from "./pages/Logout";
 import Dashboard from "./pages/Dashboard";
+import { Toaster } from "react-hot-toast";
 function App() {
   return (
     <div className="!text-tertiary">
+      <Toaster />
       <BrowserRouter>
         <Routes>
           <Route path="/" element={<Home/>}/>
@@ -26,9 +28,7 @@ function App() {
             <Route path="/view-map" element={<ViewMap />} />
             <Route path="/logout" element={<Logout/>} />
           </Route>
-          <Route path="/about" element={<h1>This is Aboout Page</h1>} />
-          <Route path="/contact" element={<h1>This is Contact Page</h1>} />
-          <Route path="/*" element={<h1>This is Not Found Page</h1>} />
+          <Route path="/*" element={<h1>Page Not Found</h1>} />
         </Routes>
       </BrowserRouter>
     </div>

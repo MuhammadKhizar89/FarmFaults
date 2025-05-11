@@ -1,53 +1,46 @@
-import React, {useState, useCallback, useEffect, useRef} from "react";
-import {GoogleMap, useJsApiLoader, MarkerF, Autocomplete} from "@react-google-maps/api";
+import React, { useState, useCallback, useEffect, useRef } from "react";
+import { GoogleMap, useJsApiLoader, MarkerF, Autocomplete } from "@react-google-maps/api";
 import convertToDMS from "../../utils/mapCordinatesConvertor";
 
-function ViewMap({points, width, height, setSelectedPoint, setOpenInfo, location}) {
-    const {isLoaded} = useJsApiLoader({
+function ViewMap({ points, width, height, setSelectedPoint, setOpenInfo, location }) {
+    const { isLoaded } = useJsApiLoader({
         id: "google-map-script",
         googleMapsApiKey: import.meta.env.VITE_GOOGLE_MAP_API_KEY,
         libraries: ["places"],
     });
+
+    const defaultLocation = { lat: location?.lat || 37.7749, lng: location?.lng || -122.4194 }; 
     const [map, setMap] = useState(null);
-    const calculateHighDensityCenter = useCallback(() => {
-        if (!points || points.length === 0) {
-            return {lat: location.lat, lng: location.lng};
-        }
-        const radius = 0.01;
-        let maxCount = 0;
-        let highDensityPoint = points[0].location;
-        points.forEach((pointA) => {
-            const nearbyPoints = points.filter((pointB) => {
-                const latDiff = pointA.location.latitude - pointB.location.latitude;
-                const lngDiff = pointA.location.longitude - pointB.location.longitude;
-                return Math.sqrt(latDiff ** 2 + lngDiff ** 2) <= radius;
-            });
-            if (nearbyPoints.length > maxCount) {
-                maxCount = nearbyPoints.length;
-                highDensityPoint = pointA.location;
+    const [center, setCenter] = useState(defaultLocation);
+    const [autocomplete, setAutocomplete] = useState(null);
+    const inputRef = useRef(null);
+
+    useEffect(() => {
+        navigator.geolocation.getCurrentPosition(
+            (position) => {
+                setCenter({
+                    lat: position.coords.latitude,
+                    lng: position.coords.longitude,
+                });
+            },
+            () => {
+                setCenter(defaultLocation); 
             }
-        });
-        return {
-            lat: highDensityPoint.latitude,
-            lng: highDensityPoint.longitude,
-        };
-    }, [points, location]);
+        );
+    }, []);
 
-    const onLoad = useCallback(
-        (mapInstance) => {
-            const center = calculateHighDensityCenter();
-            mapInstance.setCenter(center);
-            setMap(mapInstance);
-        },
-        [calculateHighDensityCenter]
-    );
-
+    const onLoad = useCallback((mapInstance) => {
+        mapInstance.setTilt(67.5); 
+        mapInstance.setHeading(90); 
+        mapInstance.setZoom(20); 
+        mapInstance.setMapTypeId("satellite");
+        mapInstance.setCenter(center);
+        setMap(mapInstance);
+    }, [center]);
     const onUnmount = useCallback(() => {
         setMap(null);
     }, []);
 
-    const [autocomplete, setAutocomplete] = useState(null);
-    const inputRef = useRef(null);
     const onPlaceChanged = () => {
         if (autocomplete) {
             const place = autocomplete.getPlace();
@@ -56,7 +49,8 @@ function ViewMap({points, width, height, setSelectedPoint, setOpenInfo, location
                     lat: place.geometry.location.lat(),
                     lng: place.geometry.location.lng(),
                 };
-                map.setCenter(newPosition);
+                setCenter(newPosition);
+                map?.setCenter(newPosition);
             }
         }
     };
@@ -114,21 +108,20 @@ function ViewMap({points, width, height, setSelectedPoint, setOpenInfo, location
                 </Autocomplete>
             </div>
             <GoogleMap
-                mapContainerStyle={{width, height}}
-                center={calculateHighDensityCenter()}
-                zoom={20}
+                mapContainerStyle={{ width, height }}
+                center={center}
+                zoom={18}
                 mapTypeId="satellite"
                 onLoad={onLoad}
                 onUnmount={onUnmount}
                 options={{
                     mapTypeControl: false,
-                    mapTypeId: "satellite",
                 }}
             >
                 {points.map((point, index) => (
                     <MarkerF
                         key={`marker-${index}`}
-                        position={{lat: point.location.latitude, lng: point.location.longitude}}
+                        position={{ lat: point.location.latitude, lng: point.location.longitude }}
                         icon="./markerIcon.png"
                         onClick={() => {
                             setSelectedPoint(point);

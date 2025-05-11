@@ -50,11 +50,11 @@ const SidePanel = () => {
     return (
         <>
 
-            <span className="z-40 top-0 right-0 fixed absolute  lg:hidden">
+            <span className="z-40 top-0 right-0 fixed   lg:hidden">
                 <Hamburger toggled={active} toggle={setActive} />
             </span>
             {active && (
-                <div className="w-1/2 lg:w-[20%] min-h-screen h-full bg-secondary px-8 fixed top-0 left-0 lg:static z-30 shadow-xl xl:shadow-none">
+                <div className="w-1/2 lg:w-[20%] min-h-screen h-full bg-secondary px-8 fixed top-0 left-0  z-30 shadow-xl xl:shadow-none">
                     <h1 onClick={() => navigate("/")} className="text-center  lg:!text-4xl my-5 cursor-pointer  font-extrabold text-nowrap">Farm Faults</h1>
                     <div className="flex flex-col gap-[25px] mt-10">
                         {sidebarLinksData.map((link, index) => (
