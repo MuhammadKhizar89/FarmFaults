@@ -57,7 +57,7 @@ export default function Account() {
   }
 
   return (
-    <main className="bg-primary py-10 w-full">
+    <main className="min-h-[100vh] bg-primary py-10 w-full">
       <h1 className="promoTest font-semibold text-[36px] mx-2 md:ml-10">
         Account settings
       </h1>
