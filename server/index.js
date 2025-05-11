@@ -25,7 +25,6 @@ app.use(
 app.get("/", (req, res) => {
   return res.status(200).send({ message: "Hello World" });
 });
-
 app.use("/api/auth", authRouter);
 app.use("/api/error", errorRouter);
 app.use("/api/error-enum", errorEnumRouter);
