@@ -21,6 +21,5 @@ Help improve farm accuracy while competing with others on a global leaderboard.
 - **Hosting**: Vercel 
 
 # Farm-Faults Live Link :
-  ![Live](https://farmfaults.com/)
+  [Live](https://farmfaults.com/)
 
-```markdown
