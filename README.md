@@ -1,6 +1,6 @@
 # Farm-Faults 🌾🐄
 
-**Farm-Faults** is a fun, full-stack web game where players explore real farms using Google Maps, spot mistakes or "faults" (like a cow on the roof or a tractor in a lake), and report them to earn points!
+**Farm-Faults** is a fun, full-stack web game where players explore real farms using Google Maps, spot mistakes or "faults" , and report them to earn points!
 
 Help improve farm accuracy while competing with others on a global leaderboard.
 
@@ -22,4 +22,5 @@ Help improve farm accuracy while competing with others on a global leaderboard.
 
 # Farm-Faults Live Link :
   [Live](https://farmfaults.com/)
+
 
